@@ -2,7 +2,6 @@ package com.example.gateway;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
@@ -22,10 +21,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        return http.authorizeExchange()
-                .pathMatchers("/admin").hasAuthority("ROLE_ADMIN")
-                .pathMatchers("/salesrep").hasAuthority("ROLE_SALESREP")
-                .pathMatchers(HttpMethod.GET,"/opps/**").permitAll()
+        return http.csrf().disable()
+                .authorizeExchange()
+                .pathMatchers("/create/salesrep").hasAuthority("ROLE_ADMIN")
+                .pathMatchers("/**").permitAll()
+//                .pathMatchers("/convert/**").permitAll()
+
+//                .pathMatchers("/**").hasAuthority("ROLE_ADMIN")
+//                .pathMatchers("/**").hasAuthority("ROLE_SALESREP")
+//                .pathMatchers(HttpMethod.GET,"/opps/**").permitAll()
+//                .pathMatchers(HttpMethod.POST,"/salesrep").permitAll()
+//                .pathMatchers("/salesrep").hasAuthority("ROLE_ADMIN")
                 .anyExchange().authenticated()
                 .and().httpBasic()
                 .and().build();

@@ -11,8 +11,15 @@ public class GatewayConfiguration {
     @Bean
     public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
         return builder.routes()
+                .route(p -> p.path("/create/**")
+                        .uri("lb://CREATE-SERVICE"))
+                .route(p -> p.path("/convert/**")
+                        .uri("lb://CONVERT-SERVICE"))
+
                 .route(p -> p.path("/lead**")
                         .uri("lb://LEAD-SERVICE"))
+
+
                 .route(p -> p.path("/accounts**")
                         .uri("lb://ACCOUNT-SERVICE"))
                 .route(p -> p.path("/contacts**")
