@@ -15,6 +15,8 @@ public class GatewayConfiguration {
                         .uri("lb://CREATE-SERVICE"))
                 .route(p -> p.path("/convert/**")
                         .uri("lb://CONVERT-SERVICE"))
+                .route(p -> p.path("/report/**")
+                        .uri("lb://REPORTING-SERVICE"))
 
                 .route(p -> p.path("/lead**")
                         .uri("lb://LEAD-SERVICE"))
