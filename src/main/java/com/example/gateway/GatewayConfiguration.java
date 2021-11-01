@@ -18,15 +18,25 @@ public class GatewayConfiguration {
 
                 .route(p -> p.path("/lead**")
                         .uri("lb://LEAD-SERVICE"))
+                .route(p -> p.path("/lead/**")
+                        .uri("lb://LEAD-SERVICE"))
 
-
+                .route(p -> p.path("/accounts/**")
+                        .uri("lb://ACCOUNT-SERVICE"))
                 .route(p -> p.path("/accounts**")
                         .uri("lb://ACCOUNT-SERVICE"))
+
+                .route(p -> p.path("/contacts/**")
+                        .uri("lb://CONTACT-SERVICE"))
                 .route(p -> p.path("/contacts**")
                         .uri("lb://CONTACT-SERVICE"))
+
                 .route(p -> p.path("/opps/**")
                         .uri("lb://OPPORTUNITY-SERVICE"))
+
                 .route(p -> p.path("/salesrep**")
+                        .uri("lb://SALESREP-SERVICE"))
+                .route(p -> p.path("/salesrep/**")
                         .uri("lb://SALESREP-SERVICE"))
                 .build();
     }
